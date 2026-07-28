@@ -132,7 +132,9 @@ thead th:hover{color:#e8622a}
 thead th.sort-active .sort-ic{opacity:1;color:#e8622a}
 tbody tr.hidden-row{display:none}
 
-.chrono-summary{background:#1a1a1a;border-radius:8px;padding:16px 20px;margin-bottom:16px;display:flex;align-items:baseline;gap:14px}
+.chrono-summary{background:#1a1a1a;border-radius:8px;padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.chrono-summary-main{display:flex;align-items:baseline;gap:14px}
+.chrono-summary-side{display:flex;flex-direction:column;gap:2px;padding-left:16px;border-left:1px solid rgba(255,255,255,.15)}
 .chrono-summary-num{font-family:'Montserrat',sans-serif;font-size:32px;font-weight:700;color:#f59d1d}
 .chrono-summary-lbl{font-size:11px;color:#c9c9c9;text-transform:uppercase;letter-spacing:.5px}
 .chrono-chapter{margin-bottom:18px}
@@ -250,7 +252,7 @@ tbody tr.hidden-row{display:none}
 .chrono-g-badge{font-family:'Montserrat',sans-serif;font-size:10px;font-weight:700;border-radius:14px;padding:2px 9px;margin-left:6px}
 .chrono-g-badge.g1{background:#e5f7ef;color:#1a8a52}
 .chrono-g-badge.g2{background:#fce8e8;color:#c0392b}
-.chrono-summary-g{font-family:'Montserrat',sans-serif;font-size:11px;color:#c9c9c9;margin-top:2px}
+.chrono-summary-g{font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;color:#c9c9c9;white-space:nowrap}
 .chrono-badge-group{display:flex;align-items:center;flex-wrap:wrap;gap:0}
 .save-btn-html{background:#1a1a1a}
 .save-btn-html:hover{background:#333}
@@ -500,10 +502,7 @@ tbody tr.hidden-row{display:none}
 <div class="panel-head"><div class="panel-title">Cronograma General — Interventoría</div></div>
 <div class="deliver-sub" style="margin-bottom:10px">Fuente: cronograma_de_obra_v6_actualizada.pdf (estructura, numeral y subcapítulos de línea base) + 20250726_programaciongeneral.pdf (% de avance). Los subcapítulos son filas de agrupación informativas (no editables). El % completado y la fecha fin de cada actividad son editables.</div>
 <div class="chrono-summary">
-<div class="chrono-summary-num" id="chrono-total-gen">86.51%</div>
-<div class="chrono-summary-g" id="chrono-g1-total-gen">G1 (Alcance contractual): 0%</div>
-<div class="chrono-summary-g" id="chrono-g2-total-gen">G2 (Demoras por definiciones): 0%</div>
-<div class="chrono-summary-lbl">Avance ponderado — Cronograma General (80 actividades)</div>
+<div class="chrono-summary-main"><div class="chrono-summary-num" id="chrono-total-gen">86.51%</div><div class="chrono-summary-lbl">Avance ponderado — Cronograma General (80 actividades)</div></div><div class="chrono-summary-side"><div class="chrono-summary-g" id="chrono-g1-total-gen">G1: 0%</div><div class="chrono-summary-g" id="chrono-g2-total-gen">G2: 0%</div></div>
 </div>
 <div class="crono-filter-row">
   <span class="filter-chip-label">Filtrar por estado:</span>
@@ -1338,10 +1337,7 @@ tbody tr.hidden-row{display:none}
 <div class="panel-head"><div class="panel-title">Plan de Choque / Reprogramación 100</div></div>
 <div class="deliver-sub" style="margin-bottom:10px">Fuente: 20250726_plan_coque.pdf (actividades pendientes al momento de crear el plan de recuperación, corte 25/07/26 — incluye adicionales de obra). Los subcapítulos son filas de agrupación informativas (no editables). El % completado y la fecha fin son editables.</div>
 <div class="chrono-summary">
-<div class="chrono-summary-num" id="chrono-total-rep">45.56%</div>
-<div class="chrono-summary-g" id="chrono-g1-total-rep">G1 (Alcance contractual): 0%</div>
-<div class="chrono-summary-g" id="chrono-g2-total-rep">G2 (Demoras por definiciones): 0%</div>
-<div class="chrono-summary-lbl">Avance ponderado — Plan de Choque (56 actividades)</div>
+<div class="chrono-summary-main"><div class="chrono-summary-num" id="chrono-total-rep">45.56%</div><div class="chrono-summary-lbl">Avance ponderado — Plan de Choque (56 actividades)</div></div><div class="chrono-summary-side"><div class="chrono-summary-g" id="chrono-g1-total-rep">G1: 0%</div><div class="chrono-summary-g" id="chrono-g2-total-rep">G2: 0%</div></div>
 </div>
 <div class="crono-filter-row">
   <span class="filter-chip-label">Filtrar por estado:</span>
@@ -2051,9 +2047,9 @@ function recalc(section){
   const totalEl = document.getElementById('chrono-total-'+section);
   if(totalEl) totalEl.textContent = total.toFixed(1)+'%';
   const totalG1El = document.getElementById('chrono-g1-total-'+section);
-  if(totalG1El) totalG1El.textContent = 'G1 (Alcance contractual): '+totalG1.toFixed(1)+'%';
+  if(totalG1El) totalG1El.textContent = 'G1: '+totalG1.toFixed(1)+'%';
   const totalG2El = document.getElementById('chrono-g2-total-'+section);
-  if(totalG2El) totalG2El.textContent = 'G2 (Demoras por definiciones): '+totalG2.toFixed(1)+'%';
+  if(totalG2El) totalG2El.textContent = 'G2: '+totalG2.toFixed(1)+'%';
   const fichaEl = document.getElementById(section==='gen' ? 'ficha-avance-gen' : 'ficha-avance-rep');
   if(fichaEl) fichaEl.textContent = total.toFixed(1)+'%';
 }
