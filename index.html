@@ -252,6 +252,8 @@ tbody tr.hidden-row{display:none}
 .chrono-g-badge.g2{background:#fce8e8;color:#c0392b}
 .chrono-summary-g{font-family:'Montserrat',sans-serif;font-size:11px;color:#c9c9c9;margin-top:2px}
 .chrono-badge-group{display:flex;align-items:center;flex-wrap:wrap;gap:0}
+.save-btn-html{background:#1a1a1a}
+.save-btn-html:hover{background:#333}
 </style>
 </head>
 <body>
@@ -264,7 +266,8 @@ tbody tr.hidden-row{display:none}
 </div>
 </div>
 <div class="topbar-sub">Última actualización <span>26/07/2026</span><br/>
-  <button class="save-btn" onclick="saveChanges()">&#128190; Guardar cambios</button>
+  <button class="save-btn" onclick="saveChangesOnly()">&#128190; Guardar cambios</button>
+  <button class="save-btn save-btn-html" onclick="saveAsHtml()">&#128196; Guardar como HTML</button>
 </div>
 </div>
 
@@ -2095,7 +2098,17 @@ function applyEstadoFilter(containerId){
   });
 }
 
-function saveChanges(){
+function saveChangesOnly(){
+  recalc('gen');
+  recalc('rep');
+  const btn = document.querySelector('.save-btn:not(.save-btn-html)');
+  if(btn){
+    const original = btn.innerHTML;
+    btn.innerHTML = '&#9989; Cambios recalculados';
+    setTimeout(()=>{ btn.innerHTML = original; }, 2200);
+  }
+}
+function saveAsHtml(){
   recalc('gen');
   recalc('rep');
   const clone = document.documentElement.cloneNode(true);
@@ -2128,10 +2141,10 @@ function saveChanges(){
   document.body.removeChild(a);
   setTimeout(()=>URL.revokeObjectURL(url), 2000);
 
-  const btn = document.querySelector('.save-btn');
+  const btn = document.querySelector('.save-btn-html');
   if(btn){
     const original = btn.innerHTML;
-    btn.innerHTML = '&#9989; Recalculado y guardado';
+    btn.innerHTML = '&#9989; Archivo descargado';
     setTimeout(()=>{ btn.innerHTML = original; }, 2200);
   }
 }
